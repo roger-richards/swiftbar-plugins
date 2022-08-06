@@ -10,7 +10,7 @@
 # <swiftbar.refresh>True</swiftbar.refresh>
 
 #Gets metrics from local T-Mobile Arcadyan gateway
-#shows 4g & 5g band, signal ⑇ bars, and metrics
+#shows 4g & 5g bands, signal ⑇ bars, and a few metrics
 
 import urllib.request
 import json
