@@ -14,6 +14,7 @@
 
 import urllib.request
 import json
+from datetime import datetime
 
 modem_url = ("http://192.168.12.1/TMI/v1/gateway?get=all")
 newline = '\n'
@@ -21,13 +22,16 @@ DIVIDER = '---\n'
 
 with urllib.request.urlopen(modem_url) as url:
     jdata = json.loads(url.read())
-#   data = json.loads(url.read().decode())
-# print(data)
+
+mtime = datetime.fromtimestamp(int(jdata['time']['localTime']))
+localtime = mtime.strftime("%M:%S")
 
 print('🟪')
 print(DIVIDER)
+
+print(jdata['device']['model'] + " ver " + jdata['device']['softwareVersion'] +" "+ jdata['device']['updateState']
+      +"  --:"+ str(localtime))
 band = '4g'
-print(jdata['device']['model'] + " ver " + jdata['device']['softwareVersion'] +" "+ jdata['device']['updateState'])
 print(band + str(jdata['signal'][band]['bands']) + "⑇" + str(jdata['signal'][band]['bars'])
       + " /RSSI>-70: " + str(jdata['signal'][band]['rssi']) + " /SINR>1: " + str(jdata['signal'][band]['sinr'])
       + " /RSRP>-90: " + str(jdata['signal'][band]['rsrp']) +'| color=brown')
